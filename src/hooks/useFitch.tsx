@@ -1,23 +1,19 @@
 import Papa from "papaparse";
-import { useMemo } from "react";
+
 
 type Callback = (data: any) => void;
 
 const useFetch = () => {
-  const sanitizeColumns = useMemo(
-    () => (data: any) => {
-      return data.map((item: any) => {
-        const sanitizedItem: any = {};
-        Object.keys(item).forEach((key) => {
-          const sanitizedKey = key.toLowerCase().replace(/(\s|-)+/g, "_");
-          sanitizedItem[sanitizedKey] = item[key];
-        });
-        return sanitizedItem;
+  const sanitizeColumns = (data: any) => {
+    return data.map((item: any) => {
+      const sanitizedItem: any = {};
+      Object.keys(item).forEach((key) => {
+        const sanitizedKey = key.toLowerCase().replace(/(\s|-)+/g, "_");
+        sanitizedItem[sanitizedKey] = item[key];
       });
-    },
-    []
-  );
-
+      return sanitizedItem;
+    });
+  };
   const fetchCsvData = async (filePath: string, callback: Callback) => {
     const response = await fetch(filePath);
     const reader = response.body!.getReader();
