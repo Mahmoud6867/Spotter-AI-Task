@@ -20,22 +20,20 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-  { id: "id", label: "ID", minWidth: 170 },
+  { id: "id", label: "ID", minWidth: 100 },
   { id: "created_dt", label: "Created Date", minWidth: 170 },
   { id: "data_source_modified_dt", label: "Modified Date", minWidth: 170 },
-  { id: "entity_type", label: "Entity Type", minWidth: 170 },
+  { id: "entity_type", label: "Entity Type", minWidth: 100 },
   { id: "operating_status", label: "Operating Status", minWidth: 170 },
   { id: "legal_name", label: "Legal Name", minWidth: 170 },
   { id: "dba_name", label: "DBA Name", minWidth: 170 },
-  { id: "physical_address", label: "Physical Address", minWidth: 170 },
+  { id: "physical_address", label: "Physical Address", minWidth: 200 },
   { id: "phone", label: "Phone", minWidth: 170 },
-  { id: "usdot_number", label: "USDOT Number", minWidth: 170 },
-  { id: "mc_mx_ff_number", label: "MC/MX/FF Number", minWidth: 170 },
-  { id: "power_units", label: "Power Units", minWidth: 170 },
+  { id: "usdot_number", label: "USDOT Number", minWidth: 100 },
+  { id: "mc_mx_ff_number", label: "MC/MX/FF Number", minWidth: 100 },
+  { id: "power_units", label: "Power Units", minWidth: 10 },
   { id: "out_of_service_date", label: "Out of Service Date", minWidth: 170 },
 ];
-
-
 
 function App() {
   const [data, setData] = useState<any[]>([]);
@@ -72,7 +70,10 @@ function App() {
                   <TableCell
                     key={column.id}
                     align={column.align}
-                    style={{ minWidth: column.minWidth }}
+                    style={{
+                      minWidth: column.minWidth,
+                      backgroundColor: "#f5f5f5",
+                    }}
                   >
                     {column.label}
                   </TableCell>
@@ -82,14 +83,9 @@ function App() {
             <TableBody>
               {data
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row,index) => {
+                .map((row, index) => {
                   return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={index}
-                    >
+                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (
@@ -100,7 +96,6 @@ function App() {
                           </TableCell>
                         );
                       })}
-
                     </TableRow>
                   );
                 })}
